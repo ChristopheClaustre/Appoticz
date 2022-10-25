@@ -1,0 +1,3 @@
+[submodule "addons/Domoticz4Godot"]
+	path = addons/Domoticz4Godot
+	url = https://github.com/ChristopheClaustre/Domoticz4Godot
