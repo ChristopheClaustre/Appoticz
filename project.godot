@@ -9,13 +9,31 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "Device",
+"language": "GDScript",
+"path": "res://addons/Domoticz4Godot/Device.gd"
+}, {
+"base": "Control",
+"class": "DeviceWidget",
+"language": "GDScript",
+"path": "res://scripts/DeviceWidget.gd"
+}, {
 "base": "Node",
 "class": "DomoticzClient",
 "language": "GDScript",
 "path": "res://addons/Domoticz4Godot/DomoticzClient.gd"
+}, {
+"base": "Node",
+"class": "DomoticzMainNode",
+"language": "GDScript",
+"path": "res://addons/Domoticz4Godot/DomoticzMainNode.gd"
 } ]
 _global_script_class_icons={
-"DomoticzClient": ""
+"Device": "",
+"DeviceWidget": "",
+"DomoticzClient": "",
+"DomoticzMainNode": ""
 }
 
 [application]
