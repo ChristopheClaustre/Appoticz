@@ -82,3 +82,12 @@ margin_left = 42.0
 margin_right = 66.0
 margin_bottom = 14.0
 text = "N/A"
+
+[node name="Button" type="Button" parent="."]
+margin_left = 165.0
+margin_right = 228.0
+margin_bottom = 32.0
+toggle_mode = true
+text = "ON/OFF"
+
+[connection signal="toggled" from="Button" to="." method="_on_Button_toggled"]

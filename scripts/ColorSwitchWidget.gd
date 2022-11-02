@@ -23,3 +23,10 @@ func refreshUI():
 		_typeLabel.text = device.type
 		_colorRect.color = device.color.color
 		_CWWLabel.text = str(device.color.cold_white) + "|" + str(device.color.cold_white) + "(" + str(device.color.temperature) + ")"
+
+
+func _on_Button_toggled(button_pressed: bool) -> void:
+	if button_pressed:
+		device.switch_on()
+	else:
+		device.switch_off()
