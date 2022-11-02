@@ -9,15 +9,35 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Device",
+"class": "ColorSwitch",
+"language": "GDScript",
+"path": "res://addons/Domoticz4Godot/scripts/ColorSwitch.gd"
+}, {
+"base": "DeviceWidget",
+"class": "ColorSwitchWidget",
+"language": "GDScript",
+"path": "res://scripts/ColorSwitchWidget.gd"
+}, {
 "base": "Resource",
 "class": "Device",
 "language": "GDScript",
 "path": "res://addons/Domoticz4Godot/scripts/Device.gd"
 }, {
+"base": "Object",
+"class": "DeviceFactory",
+"language": "GDScript",
+"path": "res://addons/Domoticz4Godot/scripts/DeviceFactory.gd"
+}, {
 "base": "Control",
 "class": "DeviceWidget",
 "language": "GDScript",
 "path": "res://scripts/DeviceWidget.gd"
+}, {
+"base": "Object",
+"class": "DeviceWidgetFactory",
+"language": "GDScript",
+"path": "res://scripts/DeviceWidgetFactory.gd"
 }, {
 "base": "Reference",
 "class": "DomoticzClient",
@@ -28,12 +48,28 @@ _global_script_classes=[ {
 "class": "DomoticzMainNode",
 "language": "GDScript",
 "path": "res://addons/Domoticz4Godot/scripts/DomoticzMainNode.gd"
+}, {
+"base": "Reference",
+"class": "DzColor",
+"language": "GDScript",
+"path": "res://addons/Domoticz4Godot/scripts/DzColor.gd"
+}, {
+"base": "DeviceWidget",
+"class": "GenericDeviceWidget",
+"language": "GDScript",
+"path": "res://scripts/GenericDeviceWidget.gd"
 } ]
 _global_script_class_icons={
+"ColorSwitch": "",
+"ColorSwitchWidget": "",
 "Device": "",
+"DeviceFactory": "",
 "DeviceWidget": "",
+"DeviceWidgetFactory": "",
 "DomoticzClient": "",
-"DomoticzMainNode": ""
+"DomoticzMainNode": "",
+"DzColor": "",
+"GenericDeviceWidget": ""
 }
 
 [application]
