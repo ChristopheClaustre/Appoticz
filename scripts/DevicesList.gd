@@ -19,4 +19,3 @@ func setList(devices : Array):
 		assert(d is Device)
 		var widget = DeviceWidgetFactory.createDeviceWidget(d, devicesParent)
 		_devicesNWidget[d] = widget
-		devicesParent.add_child(HSeparator.new())

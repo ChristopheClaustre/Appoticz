@@ -53,11 +53,6 @@ _global_script_classes=[ {
 "class": "DzColor",
 "language": "GDScript",
 "path": "res://addons/Domoticz4Godot/scripts/DzColor.gd"
-}, {
-"base": "DeviceWidget",
-"class": "GenericDeviceWidget",
-"language": "GDScript",
-"path": "res://scripts/GenericDeviceWidget.gd"
 } ]
 _global_script_class_icons={
 "ColorSwitch": "",
@@ -68,8 +63,7 @@ _global_script_class_icons={
 "DeviceWidgetFactory": "",
 "DomoticzClient": "",
 "DomoticzMainNode": "",
-"DzColor": "",
-"GenericDeviceWidget": ""
+"DzColor": ""
 }
 
 [application]
