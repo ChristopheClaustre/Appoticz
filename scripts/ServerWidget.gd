@@ -1,7 +1,7 @@
 extends Control
 
 
-func _on_Button_pressed():
+func _on_UpdateButton_pressed():
 	$DomoticzMainNode.request_devices_list()
 
 
