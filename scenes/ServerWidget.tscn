@@ -1,28 +1,58 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/Domoticz4Godot/scripts/DomoticzMainNode.gd" type="Script" id=1]
-[ext_resource path="res://scripts/ServerWidget.gd" type="Script" id=2]
 [ext_resource path="res://scenes/DevicesList.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/ServerWidget.gd" type="Script" id=4]
+[ext_resource path="res://sprites/Tools.svg" type="Texture" id=5]
 
 [node name="ServerWidget" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 2 )
+script = ExtResource( 4 )
 
 [node name="DomoticzMainNode" type="Node" parent="."]
 script = ExtResource( 1 )
 
-[node name="Button" type="Button" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 1024.0
-margin_bottom = 20.0
-text = "TEST"
+margin_bottom = 24.0
+
+[node name="UpdateButton" type="Button" parent="HBoxContainer"]
+margin_right = 992.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+text = "UPDATE DEVICES LIST"
+align = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/UpdateButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 2
+
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer/UpdateButton/HBoxContainer"]
+margin_left = 841.0
+margin_right = 992.0
+margin_bottom = 24.0
+focus_mode = 0
+pressed = true
+enabled_focus_mode = 0
+text = "Auto on tab change"
+
+[node name="SettingButton" type="Button" parent="HBoxContainer"]
+margin_left = 996.0
+margin_right = 1024.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+icon = ExtResource( 5 )
+icon_align = 1
 
 [node name="DevicesList" parent="." instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 24.0
+margin_top = 28.0
 margin_right = 1024.0
 margin_bottom = 600.0
 
 [connection signal="devices_list_retrieved" from="DomoticzMainNode" to="." method="_on_DomoticzMainNode_devices_list_retrieved"]
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="HBoxContainer/UpdateButton" to="." method="_on_UpdateButton_pressed"]
