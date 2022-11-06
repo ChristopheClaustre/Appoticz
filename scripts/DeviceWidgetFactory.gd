@@ -3,6 +3,7 @@ class_name DeviceWidgetFactory
 
 const cDefaultDeviceWidgetScene = preload("res://scenes/DeviceWidget.tscn")
 const cDeviceWidgetScenes = {
+	"Switch" : preload("res://scenes/SwitchWidget.tscn"),
 	"ColorSwitch" : preload("res://scenes/ColorSwitchWidget.tscn")
 }
 

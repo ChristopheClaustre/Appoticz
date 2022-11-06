@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/ColorSwitchWidget.gd" type="Script" id=1]
 
-[node name="DeviceWidget" type="PanelContainer"]
+[node name="ColorSwitchWidget" type="PanelContainer"]
 margin_right = 14.0
 margin_bottom = 32.0
 script = ExtResource( 1 )
