@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/ServerWidget.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/BlackOrWhiteListWidget.tscn" type="PackedScene" id=2]
 
 [node name="Main" type="TabContainer"]
 anchor_right = 1.0
@@ -14,3 +15,23 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+
+[node name="Create Server Tab" type="HBoxContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="TypesList" parent="Create Server Tab" instance=ExtResource( 2 )]
+title = "Types"
+
+[node name="VSeparator" type="VSeparator" parent="Create Server Tab"]
+margin_left = 506.0
+margin_right = 510.0
+margin_bottom = 564.0
+
+[node name="NamesList" parent="Create Server Tab" instance=ExtResource( 2 )]
+title = "Names"
