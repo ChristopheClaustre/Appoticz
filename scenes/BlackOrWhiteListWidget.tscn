@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/BlackOrWhiteListWidget.gd" type="Script" id=1]
+[ext_resource path="res://sprites/Remove.svg" type="Texture" id=2]
+[ext_resource path="res://sprites/Add.svg" type="Texture" id=3]
 
 [node name="BlackOrWhiteListWidget" type="VBoxContainer"]
 anchor_right = 1.0
@@ -36,18 +38,18 @@ alignment = 2
 
 [node name="AddButton" type="Button" parent="HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 686.0
-margin_right = 757.0
+margin_left = 799.0
+margin_right = 827.0
 margin_bottom = 24.0
-text = "Add item"
+icon = ExtResource( 3 )
 
 [node name="RemoveButton" type="Button" parent="HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 761.0
+margin_left = 831.0
 margin_right = 859.0
 margin_bottom = 24.0
 disabled = true
-text = "Remove item"
+icon = ExtResource( 2 )
 
 [node name="ClearButton" type="Button" parent="HBoxContainer/HBoxContainer"]
 margin_left = 863.0
