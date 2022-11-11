@@ -15,7 +15,7 @@ func refreshUI():
 		if _OnOffButton.is_connected("toggled", self, "_on_Button_toggled"):
 			_OnOffButton.disconnect("toggled", self, "_on_Button_toggled")
 		else:
-			_OnOffButton.pressed = device.status == "On"
+			_OnOffButton.pressed = device.status != "Off"
 			_OnOffButton.text = "ON" if _OnOffButton.pressed else "OFF"
 			# warning-ignore:return_value_discarded
 			_OnOffButton.connect("toggled", self, "_on_Button_toggled")
