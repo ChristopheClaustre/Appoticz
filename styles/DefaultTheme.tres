@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=2]
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://styles/fonts/NotoSans_Regular.woff2"
+
+[sub_resource type="DynamicFont" id=1]
+use_mipmaps = true
+use_filter = true
+font_data = SubResource( 2 )
+
+[resource]
+Header1Label/base_type = "Label"
+Header1Label/fonts/font = SubResource( 1 )
