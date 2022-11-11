@@ -1,10 +1,13 @@
 extends Control
+class_name BlackOrWhiteListWidget
 
 
 export var title = "Title" setget _set_title
 
 
 var _list := BlackOrWhiteList.new() setget _set_list
+
+
 onready var _title_label : Label = $"%TitleLabel"
 onready var _list_tree : Tree = $"%Tree"
 onready var _is_blacklist_cb := $"%BlacklistCheckBox"
