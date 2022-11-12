@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/ToggleIconButton.gd" type="Script" id=1]
-[ext_resource path="res://scenes/PassLineEdit.gd" type="Script" id=2]
+[ext_resource path="res://scripts/PassLineEdit.gd" type="Script" id=2]
 [ext_resource path="res://sprites/GuiVisibilityVisible.svg" type="Texture" id=3]
 [ext_resource path="res://sprites/GuiVisibilityHidden.svg" type="Texture" id=4]
 [ext_resource path="res://styles/DefaultTheme.tres" type="Theme" id=5]
