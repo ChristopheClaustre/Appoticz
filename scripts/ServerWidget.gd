@@ -28,5 +28,9 @@ func updateUI():
 	_domoticzMainNode.port = _serverSettings.port
 	_domoticzMainNode.use_ssl = _serverSettings.use_ssl
 	_domoticzMainNode.verify_host = _serverSettings.verify_host
-	_domoticzMainNode.username_encoded = Marshalls.utf8_to_base64(_serverSettings.username)
-	_domoticzMainNode.password_encoded = Marshalls.utf8_to_base64(_serverSettings.password)
+	_domoticzMainNode.username_encoded = ""
+	if _serverSettings.username != "":
+		_domoticzMainNode.username_encoded = Marshalls.utf8_to_base64(_serverSettings.username)
+	_domoticzMainNode.password_encoded = ""
+	if _serverSettings.password != "":
+		_domoticzMainNode.password_encoded = Marshalls.utf8_to_base64(_serverSettings.password)
