@@ -57,7 +57,7 @@ func _request_devices_list():
 	if _domoticzMainNode._request_in_progress != null:
 		return
 
-	_domoticzMainNode.request_devices_list()
+	_domoticzMainNode.request_devices_list(_serverSettings.plan)
 	_devicesList.reset()
 	_notificationManager.updateInProgress()
 
