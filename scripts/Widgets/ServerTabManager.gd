@@ -26,21 +26,21 @@ func _on_newServer_cancelled():
 	pass
 
 
-func addServer(serverSettings : ServerSettings):
+func addServer(tabSettings : TabSettings):
 	# create new server widget and add it
 	var _server = _serverWidgetScene.instance()
 	add_child_below_node(_newServer, _server)
-	_server._serverSettings = serverSettings
+	_server._tabSettings = tabSettings
 	# place _newServer at the end of tabs
 	remove_child(_newServer)
 	add_child_below_node(_server, _newServer, true)
 	# add created server to servers list
-	_servers.push_back(serverSettings)
+	_servers.push_back(tabSettings)
 	# reset each entry of _newServer
 	_newServer.reset()
 	# init tab title
 	var idx := _servers.size() - 1
-	set_tab_title(idx, serverSettings.tab_name)
+	set_tab_title(idx, tabSettings.tab_name)
 	# show newly created server
 	current_tab = idx
 

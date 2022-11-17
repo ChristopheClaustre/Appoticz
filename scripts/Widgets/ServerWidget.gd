@@ -1,7 +1,7 @@
 extends Control
 
 
-var _serverSettings := ServerSettings.new() setget _set_serverSettings
+var _tabSettings := TabSettings.new() setget _set_tabSettings
 
 
 onready var _domoticzMainNode := $"%DzMainNode"
@@ -32,24 +32,26 @@ func _ready():
 	_domoticzMainNode.connect("switchlight_error", self, "_on_DzMainNode_switchlight_error")
 
 
-func _set_serverSettings(value):
-	_serverSettings = value
+func _set_tabSettings(value):
+	_tabSettings = value
 	updateUI()
 
 
 func updateUI():
-	_autoUpdateCheckBox.pressed = _serverSettings.auto_update_on_tab
-	_domoticzMainNode.host = _serverSettings.host
-	_domoticzMainNode.port = _serverSettings.port
-	_domoticzMainNode.use_ssl = _serverSettings.use_ssl
-	_domoticzMainNode.verify_host = _serverSettings.verify_host
+	# server settings
+	_domoticzMainNode.host = _tabSettings.server_settings.host
+	_domoticzMainNode.port = _tabSettings.server_settings.port
+	_domoticzMainNode.use_ssl = _tabSettings.server_settings.use_ssl
+	_domoticzMainNode.verify_host = _tabSettings.server_settings.verify_host
 	_domoticzMainNode.username_encoded = ""
-	if _serverSettings.username != "":
-		_domoticzMainNode.username_encoded = Marshalls.utf8_to_base64(_serverSettings.username)
+	if _tabSettings.server_settings.username != "":
+		_domoticzMainNode.username_encoded = Marshalls.utf8_to_base64(_tabSettings.server_settings.username)
 	_domoticzMainNode.password_encoded = ""
-	if _serverSettings.password != "":
-		_domoticzMainNode.password_encoded = Marshalls.utf8_to_base64(_serverSettings.password)
-	if _serverSettings.auto_update_on_tab:
+	if _tabSettings.server_settings.password != "":
+		_domoticzMainNode.password_encoded = Marshalls.utf8_to_base64(_tabSettings.server_settings.password)
+	# ui settings
+	_autoUpdateCheckBox.pressed = _tabSettings.auto_update_on_tab_changed
+	if _tabSettings.auto_update_on_tab_changed:
 		_request_devices_list()
 
 
@@ -57,7 +59,7 @@ func _request_devices_list():
 	if _domoticzMainNode._request_in_progress != null:
 		return
 
-	_domoticzMainNode.request_devices_list(_serverSettings.plan)
+	_domoticzMainNode.request_devices_list(_tabSettings.plan)
 	_devicesList.reset()
 	_notificationManager.updateInProgress()
 
@@ -67,7 +69,7 @@ func _on_UpdateButton_pressed():
 
 
 func _on_AutoUpdateCheckBox_toggled(pressed):
-	_serverSettings.auto_update_on_tab = pressed
+	_tabSettings.auto_update_on_tab = pressed
 
 
 func _on_DzMainNode_timeout_error(_status):

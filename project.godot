@@ -72,7 +72,7 @@ _global_script_classes=[ {
 "base": "VBoxContainer",
 "class": "ServerSettingsWidget",
 "language": "GDScript",
-"path": "res://scripts/Widgets/ServerSettingsWidget.gd"
+"path": "res://scripts/Widgets/TabSettingsWidget.gd"
 }, {
 "base": "Device",
 "class": "Switch",
@@ -83,6 +83,11 @@ _global_script_classes=[ {
 "class": "SwitchWidget",
 "language": "GDScript",
 "path": "res://scripts/Widgets/Devices/SwitchWidget.gd"
+}, {
+"base": "Resource",
+"class": "TabSettings",
+"language": "GDScript",
+"path": "res://scripts/Resource/TabSettings.gd"
 } ]
 _global_script_class_icons={
 "BlackOrWhiteList": "",
@@ -99,7 +104,8 @@ _global_script_class_icons={
 "ServerSettings": "",
 "ServerSettingsWidget": "",
 "Switch": "",
-"SwitchWidget": ""
+"SwitchWidget": "",
+"TabSettings": ""
 }
 
 [application]
