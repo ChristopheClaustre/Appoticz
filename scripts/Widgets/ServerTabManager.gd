@@ -4,7 +4,7 @@ extends TabContainer
 var _servers := []
 
 onready var _newServer : ServerSettingsWidget = $"New server"
-var _serverWidgetScene := preload("res://scenes/ServerWidget.tscn")
+var _serverWidgetScene := preload("res://scenes/Widgets/ServerWidget.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

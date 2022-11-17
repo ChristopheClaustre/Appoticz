@@ -1,26 +1,26 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://addons/Domoticz4Godot/scripts/DomoticzMainNode.gd" type="Script" id=1]
-[ext_resource path="res://scripts/LoopingLabel.gd" type="Script" id=2]
-[ext_resource path="res://scenes/DevicesList.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/ServerWidget.gd" type="Script" id=4]
-[ext_resource path="res://sprites/Tools.svg" type="Texture" id=5]
-[ext_resource path="res://scripts/NotificationManager.gd" type="Script" id=6]
+[ext_resource path="res://scenes/Widgets/Devices/DevicesList.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/Tools.svg" type="Texture" id=2]
+[ext_resource path="res://scripts/Widgets/NotificationManager.gd" type="Script" id=3]
+[ext_resource path="res://addons/Domoticz4Godot/scripts/DzMainNode.gd" type="Script" id=4]
+[ext_resource path="res://scripts/Widgets/Generic/LoopingLabel.gd" type="Script" id=5]
+[ext_resource path="res://scripts/Widgets/ServerWidget.gd" type="Script" id=6]
 
 [node name="ServerWidget" type="Container"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 4 )
+script = ExtResource( 6 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="DomoticzMainNode" type="Node" parent="VBoxContainer"]
+[node name="DzMainNode" type="Node" parent="VBoxContainer"]
 unique_name_in_owner = true
-script = ExtResource( 1 )
+script = ExtResource( 4 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 1024.0
@@ -55,10 +55,10 @@ margin_left = 996.0
 margin_right = 1024.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
-icon = ExtResource( 5 )
+icon = ExtResource( 2 )
 icon_align = 1
 
-[node name="DevicesList" parent="VBoxContainer" instance=ExtResource( 3 )]
+[node name="DevicesList" parent="VBoxContainer" instance=ExtResource( 1 )]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -74,7 +74,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 6 )
+script = ExtResource( 3 )
 
 [node name="UpdateInProgressLabel" type="Label" parent="NotificationManager"]
 anchor_right = 1.0
@@ -86,7 +86,7 @@ text = "Update in progress..."
 align = 1
 valign = 1
 uppercase = true
-script = ExtResource( 2 )
+script = ExtResource( 5 )
 _looping_labels = [ "Update in progress", "Update in progress.", "Update in progress..", "Update in progress..." ]
 
 [node name="NotificationLabel" type="Label" parent="NotificationManager"]

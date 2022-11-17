@@ -1,10 +1,10 @@
 extends Object
 class_name DeviceWidgetFactory
 
-const cDefaultDeviceWidgetScene = preload("res://scenes/DeviceWidget.tscn")
+const cDefaultDeviceWidgetScene = preload("res://scenes/Widgets/Devices/DeviceWidget.tscn")
 const cDeviceWidgetScenes = {
-	"Switch" : preload("res://scenes/SwitchWidget.tscn"),
-	"ColorSwitch" : preload("res://scenes/ColorSwitchWidget.tscn")
+	"Switch" : preload("res://scenes/Widgets/Devices/SwitchWidget.tscn"),
+	"ColorSwitch" : preload("res://scenes/Widgets/Devices/ColorSwitchWidget.tscn")
 }
 
 
