@@ -1,7 +1,7 @@
 extends Control
 
 
-var _tabSettings := TabSettings.new() setget _set_tabSettings
+var _perspectiveSettings := TabSettings.new() setget _set_perspectiveSettings
 
 
 onready var _domoticzMainNode := $"%DzMainNode"
@@ -30,36 +30,37 @@ func _ready():
 	_domoticzMainNode.connect("requesting_error", self, "_on_DzMainNode_requesting_error")
 	# warning-ignore:return_value_discarded
 	_domoticzMainNode.connect("switchlight_error", self, "_on_DzMainNode_switchlight_error")
+	# warning-ignore:return_value_discarded
+	connect("visibility_changed", self, "_on_visibility_changed")
 
 
-func _set_tabSettings(value):
-	_tabSettings = value
+func _set_perspectiveSettings(value):
+	_perspectiveSettings = value
 	updateUI()
 
 
 func updateUI():
 	# server settings
-	_domoticzMainNode.host = _tabSettings.server_settings.host
-	_domoticzMainNode.port = _tabSettings.server_settings.port
-	_domoticzMainNode.use_ssl = _tabSettings.server_settings.use_ssl
-	_domoticzMainNode.verify_host = _tabSettings.server_settings.verify_host
+	var _server = _DataManager_.getServer(_perspectiveSettings.server_name)
+	_domoticzMainNode.host = _server.host
+	_domoticzMainNode.port = _server.port
+	_domoticzMainNode.use_ssl = _server.use_ssl
+	_domoticzMainNode.verify_host = _server.verify_host
 	_domoticzMainNode.username_encoded = ""
-	if _tabSettings.server_settings.username != "":
-		_domoticzMainNode.username_encoded = Marshalls.utf8_to_base64(_tabSettings.server_settings.username)
+	if _server.username != "":
+		_domoticzMainNode.username_encoded = Marshalls.utf8_to_base64(_server.username)
 	_domoticzMainNode.password_encoded = ""
-	if _tabSettings.server_settings.password != "":
-		_domoticzMainNode.password_encoded = Marshalls.utf8_to_base64(_tabSettings.server_settings.password)
+	if _server.password != "":
+		_domoticzMainNode.password_encoded = Marshalls.utf8_to_base64(_server.password)
 	# ui settings
-	_autoUpdateCheckBox.pressed = _tabSettings.auto_update_on_tab_changed
-	if _tabSettings.auto_update_on_tab_changed:
-		_request_devices_list()
+	_autoUpdateCheckBox.pressed = _perspectiveSettings.auto_update_on_tab_changed
 
 
 func _request_devices_list():
 	if _domoticzMainNode._request_in_progress != null:
 		return
 
-	_domoticzMainNode.request_devices_list(_tabSettings.plan)
+	_domoticzMainNode.request_devices_list(_perspectiveSettings.plan)
 	_devicesList.reset()
 	_notificationManager.updateInProgress()
 
@@ -69,39 +70,38 @@ func _on_UpdateButton_pressed():
 
 
 func _on_AutoUpdateCheckBox_toggled(pressed):
-	_tabSettings.auto_update_on_tab = pressed
+	_perspectiveSettings.auto_update_on_tab_changed = pressed
 
 
 func _on_DzMainNode_timeout_error(_status):
 	_notificationManager.notify("Timeout!", 3)
-	pass
 
 
 func _on_DzMainNode_configuration_error(_err):
 	_notificationManager.notify("Configuration error!", 3)
-	pass
 
 
 func _on_DzMainNode_connection_error(_status):
 	_notificationManager.notify("Connection error!", 3)
-	pass
 
 
 func _on_DzMainNode_request_error(_err):
 	_notificationManager.notify("Request error!", 3)
-	pass
 
 
 func _on_DzMainNode_requesting_error(_status):
 	_notificationManager.notify("Requesting error!", 3)
-	pass
 
 
 func _on_DzMainNode_switchlight_error(_body):
 	_notificationManager.notify("Switchlight error!", 3)
-	pass
 
 
 func _on_DzMainNode_devices_list_retrieved(devices):
 	_devicesList.setList(devices)
 	_notificationManager.visible = false
+
+
+func _on_visibility_changed():
+	if is_visible_in_tree() and _perspectiveSettings.auto_update_on_tab_changed:
+		_request_devices_list()

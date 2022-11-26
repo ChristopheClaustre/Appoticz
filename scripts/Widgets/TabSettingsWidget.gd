@@ -1,12 +1,9 @@
 extends VBoxContainer
-class_name ServerSettingsWidget
+class_name TabSettingsWidget
 
 
 enum Mode { CreationMode, EditMode }
 export(Mode) var mode := Mode.EditMode
-
-
-var _tabSettings := TabSettings.new() setget _set_tabSettings
 
 
 onready var _tabNameLineEdit : LineEdit = $"%TabNameLineEdit"
@@ -29,7 +26,7 @@ onready var _cancelButton : Button = $"%CancelButton"
 
 
 signal cancelled
-signal saved(serverSettings)
+signal saved(tabSettings)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -40,12 +37,12 @@ func _ready():
 	_cancelButton.connect("pressed", self, "_on_cancelButton_pressed")
 	_saveButton.text = "Create" if mode == Mode.CreationMode else "Save"
 	_cancelButton.text = "Reset" if mode == Mode.CreationMode else "Cancel"
-	updateUI()
+	reset()
 
 
 func _on_saveButton_pressed():
-	save()
-	emit_signal("saved", _tabSettings)
+	var _settings = to_settings()
+	emit_signal("saved", _settings)
 
 
 func _on_cancelButton_pressed():
@@ -55,43 +52,51 @@ func _on_cancelButton_pressed():
 
 
 func reset():
-	_set_tabSettings(TabSettings.new())
+	resetUI(TabSettings.new())
 
 
-func _set_tabSettings(value):
-	_tabSettings = value
-	updateUI()
-
-
-func updateUI():
-	_tabNameLineEdit.text = _tabSettings.tab_name
+func resetUI(tabSettings : TabSettings):
+	_tabNameLineEdit.text = tabSettings.tab_name
 	# server settings
-	_hostnameLineEdit.text = _tabSettings.server_settings.host
-	_portSpinBox.value = _tabSettings.server_settings.port
-	_userLineEdit.text = _tabSettings.server_settings.username
-	_passLineEdit.text = _tabSettings.server_settings.password
-	_SSLCheckBox.pressed = _tabSettings.server_settings.use_ssl
-	_verifyCheckBox.pressed = _tabSettings.server_settings.verify_host
+	var _server : ServerSettings = null
+	if _DataManager_.hasServer(tabSettings.server_name):
+		_server = _DataManager_.getServer(tabSettings.server_name)
+	else:
+		_server = ServerSettings.new()
+	_hostnameLineEdit.text = _server.host
+	_portSpinBox.value = _server.port
+	_userLineEdit.text = _server.username
+	_passLineEdit.text = _server.password
+	_SSLCheckBox.pressed = _server.use_ssl
+	_verifyCheckBox.pressed = _server.verify_host
 	# UI settings
-	_autoUpdateCheckBox.pressed = _tabSettings.auto_update_on_tab_changed
+	_autoUpdateCheckBox.pressed = tabSettings.auto_update_on_tab_changed
 	# filter settings
-	_planSpinBox.value = _tabSettings.plan
-	_typesList._list = _tabSettings.type_list
-	_namesList._list = _tabSettings.name_list
+	_planSpinBox.value = tabSettings.plan
+	_typesList._list = tabSettings.type_list
+	_namesList._list = tabSettings.name_list
 
 
-func save():
+func to_settings():
+	var _tabSettings = TabSettings.new()
 	_tabSettings.tab_name = _tabNameLineEdit.text
 	# server settings
-	_tabSettings.server_settings.host = _hostnameLineEdit.text
-	_tabSettings.server_settings.port = _portSpinBox.value as int
-	_tabSettings.server_settings.username = _userLineEdit.text
-	_tabSettings.server_settings.password = _passLineEdit.text
-	_tabSettings.server_settings.use_ssl = _SSLCheckBox.pressed
-	_tabSettings.server_settings.verify_host = _verifyCheckBox.pressed
+	# creation of server ID (temporary)
+	while _DataManager_.hasServer(str(_DataManager_._server_counter)):
+		_DataManager_._server_counter += 1
+	_tabSettings.server_name = str(_DataManager_._server_counter)
+	var _serverSettings := ServerSettings.new()
+	_serverSettings.host = _hostnameLineEdit.text
+	_serverSettings.port = _portSpinBox.value as int
+	_serverSettings.username = _userLineEdit.text
+	_serverSettings.password = _passLineEdit.text
+	_serverSettings.use_ssl = _SSLCheckBox.pressed
+	_serverSettings.verify_host = _verifyCheckBox.pressed
 	# UI settings
 	_tabSettings.auto_update_on_tab_changed = _autoUpdateCheckBox.pressed
 	# filter settings
 	_tabSettings.plan = _planSpinBox.value as int
 	_tabSettings.type_list = _typesList._list
 	_tabSettings.name_list = _namesList._list
+
+	return [_tabSettings,_serverSettings]

@@ -6,7 +6,7 @@ class_name TabSettings
 var tab_name = ""
 var auto_update_on_tab_changed := true
 # server settings
-var server_settings := ServerSettings.new()
+var server_name := ""
 # filter settings
 var type_list : BlackOrWhiteList = BlackOrWhiteList.new()
 var name_list : BlackOrWhiteList = BlackOrWhiteList.new()

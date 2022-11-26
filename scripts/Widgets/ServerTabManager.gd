@@ -1,50 +1,80 @@
 extends TabContainer
 
 
-var _servers := []
-
-onready var _newServer : ServerSettingsWidget = $"New server"
+onready var _newServer : TabSettingsWidget = $"New server"
 var _serverWidgetScene := preload("res://scenes/Widgets/ServerWidget.tscn")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# warning-ignore:return_value_discarded
-	connect("tab_changed", self, "_on_tab_changed")
-	# warning-ignore:return_value_discarded
 	_newServer.connect("saved", self, "_on_newServer_saved")
 	# warning-ignore:return_value_discarded
 	_newServer.connect("cancelled", self, "_on_newServer_cancelled")
+	# warning-ignore:return_value_discarded
+	_DataManager_.connect("data_loaded", self, "_on_DataManager_data_loaded")
+	# warning-ignore:return_value_discarded
+	_DataManager_.connect("perspective_added", self, "_on_DataManager_perspective_added")
+	# warning-ignore:return_value_discarded
+	_DataManager_.connect("perspective_removed", self, "_on_DataManager_perspective_removed")
+	# warning-ignore:return_value_discarded
+	_DataManager_.connect("perspective_modified", self, "_on_DataManager_perspective_modified")
+	_on_DataManager_data_loaded()
 
 
-func _on_newServer_saved(serverSettings):
-	addServer(serverSettings)
-	pass
+func _on_newServer_saved(settings):
+	var result = _DataManager_.addServer(settings[0].server_name, settings[1])
+	result = result and _DataManager_.addPerspective(settings[0])
+	assert(result)
 
 
 func _on_newServer_cancelled():
-	 #nothing to do here for now
+	# nothing to do here for now
 	pass
 
 
-func addServer(tabSettings : TabSettings):
+func _on_DataManager_data_loaded():
+	remove_child(_newServer)
+	for i in range(get_child_count(), 0, -1):
+		var child = get_child(i)
+		remove_child(child)
+		child.queue_free()
+	pass
+
+	add_child(_newServer)
+
+	for i in _DataManager_.countPerspective():
+		var perspective = _DataManager_.getPerspective(i)
+		_addPerspective(perspective)
+
+
+func _on_DataManager_perspective_added(_idx, perspectiveSettings):
+	_addPerspective(perspectiveSettings)
+
+
+func _addPerspective(perspectiveSettings):
+	var idx := get_child_count() - 1
 	# create new server widget and add it
 	var _server = _serverWidgetScene.instance()
-	add_child_below_node(_newServer, _server)
-	_server._tabSettings = tabSettings
+	add_child(_server)
+	_server._perspectiveSettings = perspectiveSettings
 	# place _newServer at the end of tabs
-	remove_child(_newServer)
-	add_child_below_node(_server, _newServer, true)
-	# add created server to servers list
-	_servers.push_back(tabSettings)
+	move_child(_newServer, idx+1)
 	# reset each entry of _newServer
 	_newServer.reset()
 	# init tab title
-	var idx := _servers.size() - 1
-	set_tab_title(idx, tabSettings.tab_name)
+	set_tab_title(idx, perspectiveSettings.tab_name)
 	# show newly created server
 	current_tab = idx
 
 
-func _on_tab_changed(idx):
-	if idx < _servers.size() and _servers[idx].auto_update_on_tab:
-		get_tab_control(idx)._request_devices_list()
+func _on_DataManager_perspective_removed(idx, perspectiveSettings):
+	var tab = get_child(idx)
+	assert(tab._perspectiveSettings == perspectiveSettings)
+	remove_child(tab)
+	pass
+
+
+func _on_DataManager_perspective_modified(_idx, _perspectiveSettings):
+	# nothing to do here for now
+	pass
