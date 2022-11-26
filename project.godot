@@ -57,7 +57,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "DzClient",
 "language": "GDScript",
-"path": "res://addons/Domoticz4Godot/scripts/DzClient.gd"
+"path": "res://addons/Domoticz4Godot/scripts/Resources/DzClient.gd"
 }, {
 "base": "Reference",
 "class": "DzColor",
@@ -70,9 +70,9 @@ _global_script_classes=[ {
 "path": "res://addons/Domoticz4Godot/scripts/DzMainNode.gd"
 }, {
 "base": "Resource",
-"class": "ServerSettings",
+"class": "DzServerSettings",
 "language": "GDScript",
-"path": "res://scripts/Resource/ServerSettings.gd"
+"path": "res://addons/Domoticz4Godot/scripts/Resources/DzServerSettings.gd"
 }, {
 "base": "VBoxContainer",
 "class": "ServerSettingsWidget",
@@ -107,7 +107,7 @@ _global_script_class_icons={
 "DzClient": "",
 "DzColor": "",
 "DzMainNode": "",
-"ServerSettings": "",
+"DzServerSettings": "",
 "ServerSettingsWidget": "",
 "Switch": "",
 "SwitchWidget": "",

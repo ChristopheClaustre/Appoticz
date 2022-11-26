@@ -2,7 +2,7 @@ extends Resource
 class_name Data
 
 
-const cValidServerProperties := ["host", "port", "use_ssl", "verify_host", "username", "password"]
+const cValidServerProperties := ["host", "port", "use_ssl", "verify_host", "username_encoded", "password_encoded"]
 const cValidPerspectiveProperties := ["tab_name", "auto_update_on_tab_changed", "server_name", "plan"]
 
 
@@ -37,7 +37,7 @@ func fromJSON(data) -> bool:
 	var _perspectives_json : Array = data["perspectives"]
 	# Server
 	for name in _servers_json.keys():
-		var _server = ServerSettings.new()
+		var _server = DzServerSettings.new()
 		if fromDictionary(_server, _servers_json[name], cValidServerProperties) == false:
 			return false
 		servers[name] = _server
@@ -55,7 +55,6 @@ static func toDictionary(res : Resource, valid_properties : Array = []) -> Dicti
 	var dict := {}
 	for property_dict in res.get_property_list():
 		var property_name = property_dict["name"]
-		assert(res.get(property_name) != null)
 		if valid_properties.empty() or valid_properties.find(property_name) != -1:
 			dict[property_name] = res.get(property_name)
 	return dict
@@ -71,5 +70,5 @@ static func fromDictionary(res : Resource, dict : Dictionary, valid_properties :
 			# JSON doesn't support int only real, so let's check
 			if typeof(value_res) != TYPE_INT or typeof(value_dict) != TYPE_REAL:
 				return false
-		res.set(property_name, dict[property_name])
+		res.set(property_name, value_dict)
 	return true

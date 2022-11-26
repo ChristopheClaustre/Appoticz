@@ -58,15 +58,19 @@ func reset():
 func resetUI(tabSettings : TabSettings):
 	_tabNameLineEdit.text = tabSettings.tab_name
 	# server settings
-	var _server : ServerSettings = null
+	var _server : DzServerSettings = null
 	if _DataManager_.hasServer(tabSettings.server_name):
 		_server = _DataManager_.getServer(tabSettings.server_name)
 	else:
-		_server = ServerSettings.new()
+		_server = DzServerSettings.new()
 	_hostnameLineEdit.text = _server.host
 	_portSpinBox.value = _server.port
-	_userLineEdit.text = _server.username
-	_passLineEdit.text = _server.password
+	_userLineEdit.text = ""
+	if not _server.username_encoded.empty():
+		_userLineEdit.text = Marshalls.base64_to_utf8(_server.username_encoded)
+	_passLineEdit.text = ""
+	if not _server.password_encoded.empty():
+		_passLineEdit.text = Marshalls.base64_to_utf8(_server.password_encoded)
 	_SSLCheckBox.pressed = _server.use_ssl
 	_verifyCheckBox.pressed = _server.verify_host
 	# UI settings
@@ -85,11 +89,15 @@ func to_settings():
 	while _DataManager_.hasServer(str(_DataManager_._server_counter)):
 		_DataManager_._server_counter += 1
 	_tabSettings.server_name = str(_DataManager_._server_counter)
-	var _serverSettings := ServerSettings.new()
+	var _serverSettings := DzServerSettings.new()
 	_serverSettings.host = _hostnameLineEdit.text
 	_serverSettings.port = _portSpinBox.value as int
-	_serverSettings.username = _userLineEdit.text
-	_serverSettings.password = _passLineEdit.text
+	_serverSettings.username_encoded = ""
+	if not _userLineEdit.text.empty():
+		_serverSettings.username_encoded = Marshalls.utf8_to_base64(_userLineEdit.text)
+	_serverSettings.password_encoded = ""
+	if not _passLineEdit.text.empty():
+		_serverSettings.password_encoded = Marshalls.utf8_to_base64(_passLineEdit.text)
 	_serverSettings.use_ssl = _SSLCheckBox.pressed
 	_serverSettings.verify_host = _verifyCheckBox.pressed
 	# UI settings

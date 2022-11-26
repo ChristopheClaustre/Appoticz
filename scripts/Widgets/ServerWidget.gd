@@ -36,23 +36,13 @@ func _ready():
 
 func _set_perspectiveSettings(value):
 	_perspectiveSettings = value
+	# change server settings
+	var _server = _DataManager_.getServer(_perspectiveSettings.server_name)
+	_domoticzMainNode.server_settings = _server
 	updateUI()
 
 
 func updateUI():
-	# server settings
-	var _server = _DataManager_.getServer(_perspectiveSettings.server_name)
-	_domoticzMainNode.host = _server.host
-	_domoticzMainNode.port = _server.port
-	_domoticzMainNode.use_ssl = _server.use_ssl
-	_domoticzMainNode.verify_host = _server.verify_host
-	_domoticzMainNode.username_encoded = ""
-	if _server.username != "":
-		_domoticzMainNode.username_encoded = Marshalls.utf8_to_base64(_server.username)
-	_domoticzMainNode.password_encoded = ""
-	if _server.password != "":
-		_domoticzMainNode.password_encoded = Marshalls.utf8_to_base64(_server.password)
-	# ui settings
 	_autoUpdateCheckBox.pressed = _perspectiveSettings.auto_update_on_tab_changed
 
 

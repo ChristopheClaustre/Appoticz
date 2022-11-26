@@ -37,13 +37,13 @@ func getServerById(idx : int): return _data.servers[_data.servers.keys()[idx]]
 func countServer() -> int: return _data.servers.size()
 
 
-func addServer(serverName : String, serverSettings : ServerSettings) -> bool:
+func addServer(serverName : String, serverSettings : DzServerSettings) -> bool:
 	if _data.servers.has(serverName):
 		return false
 	return setServer(serverName, serverSettings)
 
 
-func setServer(serverName : String, serverSettings : ServerSettings) -> bool:
+func setServer(serverName : String, serverSettings : DzServerSettings) -> bool:
 	var overwriting = _data.servers.has(serverName)
 	_data.servers[serverName] = serverSettings
 	_dirty = true
