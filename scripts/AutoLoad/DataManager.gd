@@ -10,6 +10,7 @@ var _dirty = false
 var _server_counter := 0
 
 
+signal data_loaded()
 signal server_added(serverName, serverSettings)
 signal server_removed(serverName, serverSettings)
 signal server_modified(serverName, serverSettings)
@@ -18,6 +19,12 @@ signal perspective_removed(index, perspectiveSettings)
 signal perspective_modified(index, perspectiveSettings)
 
 
+func _ready():
+	load_data(cDefaultFilename)
+
+
+func _exit_tree():
+	save_data(cDefaultFilename)
 
 
 func _set_private(_value): pass
@@ -86,3 +93,28 @@ func removePerspective(idx : int) -> bool:
 	_dirty = true
 	emit_signal("perspective_removed", idx, removed_perspective)
 	return true
+
+
+func save_data(filename : String):
+	if _dirty:
+		var file = File.new()
+		if file.open(filename, File.WRITE) == OK:
+			file.store_string(JSON.print(_data.toJSON()))
+			file.close()
+			_dirty = false
+			return true
+		return false
+	return true
+
+
+func load_data(filename : String):
+	var file = File.new()
+	if file.file_exists(filename):
+		file.open(filename, File.READ)
+		var string_read = file.get_as_text()
+		var data_parsed := JSON.parse(string_read)
+		file.close()
+		if data_parsed and _data.fromJSON(data_parsed.result):
+			emit_signal("data_loaded")
+		else:
+			printerr("Corrupted data!")
