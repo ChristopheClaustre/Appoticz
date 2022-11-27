@@ -35,12 +35,18 @@ func _ready():
 	_saveButton.connect("pressed", self, "_on_saveButton_pressed")
 	# warning-ignore:return_value_discarded
 	_cancelButton.connect("pressed", self, "_on_cancelButton_pressed")
+	# warning-ignore:return_value_discarded
+	_tabNameLineEdit.connect("focus_exited", self, "_on_tabNameLineEdit_focus_exited")
+	# warning-ignore:return_value_discarded
+	_hostnameLineEdit.connect("focus_exited", self, "_on_hostnameLineEdit_focus_exited")
 	_saveButton.text = "Create" if mode == Mode.CreationMode else "Save"
 	_cancelButton.text = "Reset" if mode == Mode.CreationMode else "Cancel"
 	reset()
 
 
 func _on_saveButton_pressed():
+	if not _checkUI():
+		return
 	var _settings = to_settings()
 	emit_signal("saved", _settings)
 
@@ -79,6 +85,39 @@ func resetUI(perspectiveSettings : PerspectiveSettings):
 	_planSpinBox.value = perspectiveSettings.plan
 	_typesList._list = perspectiveSettings.type_list
 	_namesList._list = perspectiveSettings.name_list
+
+	# error system
+	_tabNameLineEdit.modulate = Color.white
+	_hostnameLineEdit.modulate = Color.white
+
+
+func _checkUI():
+	var _checked = _checkTabName()
+	_checked = _checked and _checkHostname()
+	_saveButton.disabled = not _checked
+	return _checked
+
+
+func _checkTabName():
+	var _error_tab_name := _tabNameLineEdit.text.empty()
+	_tabNameLineEdit.modulate = Color.red if _error_tab_name else Color.white
+	return not _error_tab_name
+
+
+func _checkHostname():
+	var _error_hostname := _hostnameLineEdit.text.empty()
+	_hostnameLineEdit.modulate = Color.red if _error_hostname else Color.white
+	return not _error_hostname
+
+
+func _on_tabNameLineEdit_focus_exited():
+	if _checkTabName():
+		_saveButton.disabled = false
+
+
+func _on_hostnameLineEdit_focus_exited():
+	if _checkHostname():
+		_saveButton.disabled = false
 
 
 func to_settings():
