@@ -72,7 +72,6 @@ margin_left = 70.0
 margin_right = 190.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 120, 0 )
-align = 2
 placeholder_text = "127.0.0.1"
 
 [node name="Label3" type="Label" parent="HBoxContainer/GridContainer"]
@@ -117,7 +116,6 @@ margin_left = 70.0
 margin_right = 200.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 130, 0 )
-align = 2
 placeholder_text = "username"
 
 [node name="Label4" type="Label" parent="HBoxContainer/GridContainer2"]
@@ -138,7 +136,6 @@ margin_right = 104.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
-align = 2
 secret = true
 placeholder_text = "123456"
 script = ExtResource( 2 )
