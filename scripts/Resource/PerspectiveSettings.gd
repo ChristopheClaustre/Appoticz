@@ -1,5 +1,5 @@
 extends Resource
-class_name TabSettings
+class_name PerspectiveSettings
 
 
 # ui settings

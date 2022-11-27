@@ -67,7 +67,7 @@ func getPerspective(idx : int): return _data.perspectives[idx]
 func countPerspective() -> int: return _data.perspectives.size()
 
 
-func addPerspective(perspectiveSettings : TabSettings) -> bool:
+func addPerspective(perspectiveSettings : PerspectiveSettings) -> bool:
 	if _data.servers.has(perspectiveSettings):
 		return false
 	_data.perspectives.push_back(perspectiveSettings)
@@ -76,7 +76,7 @@ func addPerspective(perspectiveSettings : TabSettings) -> bool:
 	return true
 
 
-func setPerspective(idx : int, perspectiveSettings : TabSettings) -> bool:
+func setPerspective(idx : int, perspectiveSettings : PerspectiveSettings) -> bool:
 	if _data.servers.has(perspectiveSettings) or _data.servers.size() <= idx:
 		return false
 	_data.perspectives[idx] = perspectiveSettings

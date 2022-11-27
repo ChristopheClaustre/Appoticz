@@ -74,10 +74,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/Domoticz4Godot/scripts/Resources/DzServerSettings.gd"
 }, {
-"base": "VBoxContainer",
-"class": "ServerSettingsWidget",
+"base": "Resource",
+"class": "PerspectiveSettings",
 "language": "GDScript",
-"path": "res://scripts/Widgets/TabSettingsWidget.gd"
+"path": "res://scripts/Resource/PerspectiveSettings.gd"
+}, {
+"base": "VBoxContainer",
+"class": "PerspectiveSettingsWidget",
+"language": "GDScript",
+"path": "res://scripts/Widgets/PerspectiveSettingsWidget.gd"
 }, {
 "base": "Device",
 "class": "Switch",
@@ -88,11 +93,6 @@ _global_script_classes=[ {
 "class": "SwitchWidget",
 "language": "GDScript",
 "path": "res://scripts/Widgets/Devices/SwitchWidget.gd"
-}, {
-"base": "Resource",
-"class": "TabSettings",
-"language": "GDScript",
-"path": "res://scripts/Resource/TabSettings.gd"
 } ]
 _global_script_class_icons={
 "BlackOrWhiteList": "",
@@ -108,10 +108,10 @@ _global_script_class_icons={
 "DzColor": "",
 "DzMainNode": "",
 "DzServerSettings": "",
-"ServerSettingsWidget": "",
+"PerspectiveSettings": "",
+"PerspectiveSettingsWidget": "",
 "Switch": "",
-"SwitchWidget": "",
-"TabSettings": ""
+"SwitchWidget": ""
 }
 
 [application]

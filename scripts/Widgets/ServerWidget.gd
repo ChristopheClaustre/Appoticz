@@ -1,7 +1,7 @@
 extends Control
 
 
-var _perspectiveSettings := TabSettings.new() setget _set_perspectiveSettings
+var _perspectiveSettings := PerspectiveSettings.new() setget _set_perspectiveSettings
 
 
 onready var _domoticzMainNode := $"%DzMainNode"

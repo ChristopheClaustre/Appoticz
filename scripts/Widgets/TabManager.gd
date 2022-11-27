@@ -1,16 +1,16 @@
 extends TabContainer
 
 
-onready var _newServer : TabSettingsWidget = $"New server"
+onready var _newPerspective : PerspectiveSettingsWidget = $"New Perspective"
 var _serverWidgetScene := preload("res://scenes/Widgets/ServerWidget.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# warning-ignore:return_value_discarded
-	_newServer.connect("saved", self, "_on_newServer_saved")
+	_newPerspective.connect("saved", self, "_on_newPerspective_saved")
 	# warning-ignore:return_value_discarded
-	_newServer.connect("cancelled", self, "_on_newServer_cancelled")
+	_newPerspective.connect("cancelled", self, "_on_newPerspective_cancelled")
 	# warning-ignore:return_value_discarded
 	_DataManager_.connect("data_loaded", self, "_on_DataManager_data_loaded")
 	# warning-ignore:return_value_discarded
@@ -22,26 +22,26 @@ func _ready():
 	_on_DataManager_data_loaded()
 
 
-func _on_newServer_saved(settings):
+func _on_newPerspective_saved(settings):
 	var result = _DataManager_.addServer(settings[0].server_name, settings[1])
 	result = result and _DataManager_.addPerspective(settings[0])
 	assert(result)
 
 
-func _on_newServer_cancelled():
+func _on_newPerspective_cancelled():
 	# nothing to do here for now
 	pass
 
 
 func _on_DataManager_data_loaded():
-	remove_child(_newServer)
+	remove_child(_newPerspective)
 	for i in range(get_child_count(), 0, -1):
 		var child = get_child(i)
 		remove_child(child)
 		child.queue_free()
 	pass
 
-	add_child(_newServer)
+	add_child(_newPerspective)
 
 	for i in _DataManager_.countPerspective():
 		var perspective = _DataManager_.getPerspective(i)
@@ -58,10 +58,10 @@ func _addPerspective(perspectiveSettings):
 	var _server = _serverWidgetScene.instance()
 	add_child(_server)
 	_server._perspectiveSettings = perspectiveSettings
-	# place _newServer at the end of tabs
-	move_child(_newServer, idx+1)
-	# reset each entry of _newServer
-	_newServer.reset()
+	# place _newPerspective at the end of tabs
+	move_child(_newPerspective, idx+1)
+	# reset each entry of _newPerspective
+	_newPerspective.reset()
 	# init tab title
 	set_tab_title(idx, perspectiveSettings.tab_name)
 	# show newly created server

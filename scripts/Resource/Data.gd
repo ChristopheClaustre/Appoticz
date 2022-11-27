@@ -43,7 +43,7 @@ func fromJSON(data) -> bool:
 		servers[name] = _server
 	# Perspective
 	for json_value in _perspectives_json:
-		var _perspective = TabSettings.new()
+		var _perspective = PerspectiveSettings.new()
 		if fromDictionary(_perspective, json_value, cValidPerspectiveProperties) == false:
 			return false
 		perspectives.push_back(_perspective)

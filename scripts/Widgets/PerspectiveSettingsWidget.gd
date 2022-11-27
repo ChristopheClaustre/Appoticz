@@ -1,5 +1,5 @@
 extends VBoxContainer
-class_name TabSettingsWidget
+class_name PerspectiveSettingsWidget
 
 
 enum Mode { CreationMode, EditMode }
@@ -26,7 +26,7 @@ onready var _cancelButton : Button = $"%CancelButton"
 
 
 signal cancelled
-signal saved(tabSettings)
+signal saved(perspectiveSettings)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -52,15 +52,15 @@ func _on_cancelButton_pressed():
 
 
 func reset():
-	resetUI(TabSettings.new())
+	resetUI(PerspectiveSettings.new())
 
 
-func resetUI(tabSettings : TabSettings):
-	_tabNameLineEdit.text = tabSettings.tab_name
+func resetUI(perspectiveSettings : PerspectiveSettings):
+	_tabNameLineEdit.text = perspectiveSettings.tab_name
 	# server settings
 	var _server : DzServerSettings = null
-	if _DataManager_.hasServer(tabSettings.server_name):
-		_server = _DataManager_.getServer(tabSettings.server_name)
+	if _DataManager_.hasServer(perspectiveSettings.server_name):
+		_server = _DataManager_.getServer(perspectiveSettings.server_name)
 	else:
 		_server = DzServerSettings.new()
 	_hostnameLineEdit.text = _server.host
@@ -74,21 +74,21 @@ func resetUI(tabSettings : TabSettings):
 	_SSLCheckBox.pressed = _server.use_ssl
 	_verifyCheckBox.pressed = _server.verify_host
 	# UI settings
-	_autoUpdateCheckBox.pressed = tabSettings.auto_update_on_tab_changed
+	_autoUpdateCheckBox.pressed = perspectiveSettings.auto_update_on_tab_changed
 	# filter settings
-	_planSpinBox.value = tabSettings.plan
-	_typesList._list = tabSettings.type_list
-	_namesList._list = tabSettings.name_list
+	_planSpinBox.value = perspectiveSettings.plan
+	_typesList._list = perspectiveSettings.type_list
+	_namesList._list = perspectiveSettings.name_list
 
 
 func to_settings():
-	var _tabSettings = TabSettings.new()
-	_tabSettings.tab_name = _tabNameLineEdit.text
+	var _perspectiveSettings = PerspectiveSettings.new()
+	_perspectiveSettings.tab_name = _tabNameLineEdit.text
 	# server settings
 	# creation of server ID (temporary)
 	while _DataManager_.hasServer(str(_DataManager_._server_counter)):
 		_DataManager_._server_counter += 1
-	_tabSettings.server_name = str(_DataManager_._server_counter)
+	_perspectiveSettings.server_name = str(_DataManager_._server_counter)
 	var _serverSettings := DzServerSettings.new()
 	_serverSettings.host = _hostnameLineEdit.text
 	_serverSettings.port = _portSpinBox.value as int
@@ -101,10 +101,10 @@ func to_settings():
 	_serverSettings.use_ssl = _SSLCheckBox.pressed
 	_serverSettings.verify_host = _verifyCheckBox.pressed
 	# UI settings
-	_tabSettings.auto_update_on_tab_changed = _autoUpdateCheckBox.pressed
+	_perspectiveSettings.auto_update_on_tab_changed = _autoUpdateCheckBox.pressed
 	# filter settings
-	_tabSettings.plan = _planSpinBox.value as int
-	_tabSettings.type_list = _typesList._list
-	_tabSettings.name_list = _namesList._list
+	_perspectiveSettings.plan = _planSpinBox.value as int
+	_perspectiveSettings.type_list = _typesList._list
+	_perspectiveSettings.name_list = _namesList._list
 
-	return [_tabSettings,_serverSettings]
+	return [_perspectiveSettings,_serverSettings]
