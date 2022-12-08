@@ -4,6 +4,8 @@ class_name Data
 
 const cValidServerProperties := ["host", "port", "use_ssl", "verify_host", "username_encoded", "password_encoded"]
 const cValidPerspectiveProperties := ["tab_name", "auto_update_on_tab_changed", "server_name", "plan"]
+const cPerspectivesKey := "perspectives"
+const cServersKey := "servers"
 
 
 var servers := {}
@@ -13,28 +15,28 @@ var perspectives := []
 func toJSON() -> Dictionary:
 	var _data = {}
 	# Server
-	_data["servers"] = {}
+	_data[cServersKey] = {}
 	for name in servers.keys():
 		var server_dict := toDictionary(servers[name], cValidServerProperties)
-		_data["servers"][name] = server_dict
+		_data[cServersKey][name] = server_dict
 	# Perspective
-	_data["perspectives"] = []
+	_data[cPerspectivesKey] = []
 	for _perspective in perspectives:
 		var perspective_dict := toDictionary(_perspective, cValidPerspectiveProperties)
-		_data["perspectives"].push_back(perspective_dict)
+		_data[cPerspectivesKey].push_back(perspective_dict)
 	return _data
 
 
 func fromJSON(data) -> bool:
 	if not (data is Dictionary):
 		return false
-	if not data.has_all(["servers", "perspectives"]):
+	if not data.has_all([cServersKey, cPerspectivesKey]):
 		return false
-	if not (data["servers"] is Dictionary) or not (data["perspectives"] is Array):
+	if not (data[cServersKey] is Array) or not (data[cPerspectivesKey] is Array):
 		return false
 
-	var _servers_json : Dictionary = data["servers"]
-	var _perspectives_json : Array = data["perspectives"]
+	var _servers_json : Dictionary = data[cServersKey]
+	var _perspectives_json : Array = data[cPerspectivesKey]
 	# Server
 	for name in _servers_json.keys():
 		var _server = DzServerSettings.new()
