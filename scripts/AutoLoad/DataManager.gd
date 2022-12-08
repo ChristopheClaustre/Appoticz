@@ -31,20 +31,21 @@ func _set_private(_value): pass
 func _get_private(): return null
 
 
-func hasServer(serverName : String): return _data.servers.has(serverName)
-func getServer(serverName : String): return _data.servers[serverName]
-func getServerById(idx : int): return _data.servers[_data.servers.keys()[idx]]
+func hasServer(serverName : String) -> bool: return _data.servers.has(serverName)
+func getServer(serverName : String) -> DzServerSettings: return _data.servers[serverName]
+func getServerById(idx : int) -> DzServerSettings: return _data.servers[getServerNameById(idx)]
+func getServerNameById(idx : int) -> String: return _data.servers.keys()[idx]
 func countServer() -> int: return _data.servers.size()
 
 
 func addServer(serverName : String, serverSettings : DzServerSettings) -> bool:
-	if _data.servers.has(serverName):
+	if hasServer(serverName):
 		return false
 	return setServer(serverName, serverSettings)
 
 
 func setServer(serverName : String, serverSettings : DzServerSettings) -> bool:
-	var overwriting = _data.servers.has(serverName)
+	var overwriting = hasServer(serverName)
 	_data.servers[serverName] = serverSettings
 	_dirty = true
 	if overwriting:
@@ -63,7 +64,7 @@ func removeServer(serverName : String) -> bool:
 	return false
 
 
-func getPerspective(idx : int): return _data.perspectives[idx]
+func getPerspective(idx : int) -> PerspectiveSettings: return _data.perspectives[idx]
 func countPerspective() -> int: return _data.perspectives.size()
 
 
@@ -95,7 +96,7 @@ func removePerspective(idx : int) -> bool:
 	return true
 
 
-func save_data(filename : String):
+func save_data(filename : String) -> bool:
 	if _dirty:
 		var file = File.new()
 		if file.open(filename, File.WRITE) == OK:
@@ -107,7 +108,7 @@ func save_data(filename : String):
 	return true
 
 
-func load_data(filename : String):
+func load_data(filename : String) -> void:
 	var file = File.new()
 	if file.file_exists(filename):
 		file.open(filename, File.READ)
