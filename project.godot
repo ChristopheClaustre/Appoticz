@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Widgets/Devices/ColorSwitchWidget.gd"
 }, {
+"base": "MenuButton",
+"class": "ComboBox",
+"language": "GDScript",
+"path": "res://scripts/Widgets/ComboBox.gd"
+}, {
 "base": "Resource",
 "class": "Data",
 "language": "GDScript",
@@ -99,6 +104,7 @@ _global_script_class_icons={
 "BlackOrWhiteListWidget": "",
 "ColorSwitch": "",
 "ColorSwitchWidget": "",
+"ComboBox": "",
 "Data": "",
 "Device": "",
 "DeviceFactory": "",

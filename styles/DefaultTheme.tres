@@ -1,4 +1,7 @@
-[gd_resource type="Theme" load_steps=3 format=2]
+[gd_resource type="Theme" load_steps=5 format=2]
+
+[ext_resource path="res://styles/styleBoxes/combobox_normal.tres" type="StyleBox" id=1]
+[ext_resource path="res://styles/styleBoxes/combobox_focus.tres" type="StyleBox" id=2]
 
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://styles/fonts/NotoSans_Regular.woff2"
@@ -9,5 +12,12 @@ use_filter = true
 font_data = SubResource( 2 )
 
 [resource]
+ComboBox/base_type = "MenuButton"
+ComboBox/colors/font_color_hover = Color( 1, 1, 1, 1 )
+ComboBox/colors/font_color_pressed = Color( 0.372549, 0.54902, 0.815686, 1 )
+ComboBox/styles/focus = ExtResource( 2 )
+ComboBox/styles/hover = ExtResource( 1 )
+ComboBox/styles/normal = ExtResource( 1 )
+ComboBox/styles/pressed = ExtResource( 2 )
 Header1Label/base_type = "Label"
 Header1Label/fonts/font = SubResource( 1 )
