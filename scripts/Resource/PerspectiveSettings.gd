@@ -3,11 +3,11 @@ class_name PerspectiveSettings
 
 
 # ui settings
-var tab_name = ""
-var auto_update_on_tab_changed := true
+export var tab_name = ""
+export var auto_update_on_tab_changed := true
 # server settings
-var server_name := ""
+export var server_name := ""
 # filter settings
 var type_list : BlackOrWhiteList = BlackOrWhiteList.new()
 var name_list : BlackOrWhiteList = BlackOrWhiteList.new()
-var plan := -1
+export var plan := -1
