@@ -89,6 +89,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Widgets/PerspectiveSettingsWidget.gd"
 }, {
+"base": "Control",
+"class": "SettingsWidget",
+"language": "GDScript",
+"path": "res://scripts/Widgets/SettingsWidget.gd"
+}, {
 "base": "Device",
 "class": "Switch",
 "language": "GDScript",
@@ -116,6 +121,7 @@ _global_script_class_icons={
 "DzServerSettings": "",
 "PerspectiveSettings": "",
 "PerspectiveSettingsWidget": "",
+"SettingsWidget": "",
 "Switch": "",
 "SwitchWidget": ""
 }

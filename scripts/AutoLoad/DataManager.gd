@@ -56,6 +56,24 @@ func setServer(serverName : String, serverSettings : DzServerSettings) -> bool:
 	return true
 
 
+func renameServer(oldServerName : String, newServerName : String) -> bool:
+	if not hasServer(oldServerName) or hasServer(newServerName):
+		return false
+	# rename server
+	var _server = _data.servers[oldServerName]
+	var status = _data.servers.erase(oldServerName)
+	assert(status)
+	_data.servers[newServerName] = _server
+	emit_signal("server_modified", newServerName, _server)
+	# modify perspectives using this server
+	for i in _data.perspectives.size():
+		var _perspective = _data.perspectives[i]
+		if _perspective.server_name == oldServerName:
+			_perspective.server_name = newServerName
+			emit_signal("perspective_modified", i, _perspective)
+	return true
+
+
 func removeServer(serverName : String) -> bool:
 	var removed_server = _data.servers.get(serverName)
 	if _data.servers.erase(serverName):
