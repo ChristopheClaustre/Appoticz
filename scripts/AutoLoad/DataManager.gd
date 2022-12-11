@@ -24,7 +24,8 @@ func _ready():
 
 
 func _exit_tree():
-	save_data(cDefaultFilename)
+	if not save_data(cDefaultFilename):
+		printerr("Data can't be saved.")
 
 
 func _set_private(_value): pass
