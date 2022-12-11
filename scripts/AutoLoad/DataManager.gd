@@ -88,7 +88,7 @@ func setPerspective(idx : int, perspectiveSettings : PerspectiveSettings) -> boo
 
 
 func removePerspective(idx : int) -> bool:
-	if idx < 0 || _data.perspectives.size() > idx:
+	if idx < 0 || countPerspective() <= idx:
 		return false
 	var removed_perspective = _data.perspectives[idx]
 	_data.perspectives.remove(idx)

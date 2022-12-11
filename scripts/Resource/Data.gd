@@ -32,7 +32,7 @@ func fromJSON(data) -> bool:
 		return false
 	if not data.has_all([cServersKey, cPerspectivesKey]):
 		return false
-	if not (data[cServersKey] is Array) or not (data[cPerspectivesKey] is Array):
+	if not (data[cServersKey] is Dictionary) or not (data[cPerspectivesKey] is Array):
 		return false
 
 	var _servers_json : Dictionary = data[cServersKey]
